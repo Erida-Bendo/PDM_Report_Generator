@@ -60,9 +60,9 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
     
     return results
 
-def create_report(project_name, pcode, output_folder, output_file,report_name,proj_code,rev_num,author, description, checker,auth_init, check_init, author_email,page_type):
+def create_report(date_number, date_month, project_name, pcode,output_folder, output_file,report_name,proj_code,rev_num,author, description, checker,auth_init, check_init, author_email,page_type):
     with open(output_file, "a", encoding="utf-8") as tex_file:
-       tex_file.write(lc.content("resources/BH.jpg",project_name,report_name,proj_code, pcode ,rev_num, author, description, checker, auth_init, check_init, author_email,page_type))
+       tex_file.write(lc.content(r"C:/Users/ebendo/Desktop/BH.jpg".replace('/','\\'), date_number, date_month, project_name,report_name,proj_code, pcode ,rev_num, author, description, checker, auth_init, check_init, author_email,page_type))
     compiler.compile_document(tex_engine='lualatex',
                             bib_engine='biber',
                             no_bib=True,
@@ -73,31 +73,5 @@ def create_report(project_name, pcode, output_folder, output_file,report_name,pr
 
     return None
 
-# Example usage:
-if __name__ == "__main__":
-    try:
-        file_path = r"C:\Users\ebendo\Desktop\BHE_DE_Dokumentenregister_MfN_LP2.xlsx"
 
-        data = extract_excel_data(file_path)
-        
-        for item in data:
-            auth_name = item['author']
-            check_name = item['checker']
-            words = auth_name.split()
-            auth_init = ''.join([word[0] for word in words]) 
-            words = check_name.split()
-            check_init = ''.join([word[0] for word in words]) 
-            email_id = auth_name.lower().replace(' ', '.') + "@burohappold.com"
-            
-            # Create a sensible file name
-            file_name = f"C://Users//ebendo//Desktop//PDM_Test//{item['proj_name'].replace(' ', '_')}_{item['proj_code']}.tex"
-            folder_name = f"C://Users//ebendo//Desktop//PDM_Test//{item['proj_name'].replace(' ', '_')}_{item['proj_code']}"
-            
-            create_report(folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'])
-        
-        if not data:
-            print("No data was extracted! Please check the debug output above.")
-            
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
 

@@ -2,7 +2,7 @@
 class LatexContent:
   
   @staticmethod
-  def content(logo_fp,proj_name,report_name,proj_code,proj_num,rev_num,author, description, checker,author_init, checker_init,author_email, page_type):
+  def content(logo_fp, date_number, date_month, proj_name,report_name,proj_code,proj_num,rev_num,author, description, checker,author_init, checker_init,author_email, page_type):
     if page_type == "A4":
       content = r"""
 \documentclass[9pt,""" + page_type.lower() + r"""paper]{report}
@@ -70,7 +70,7 @@ class LatexContent:
 \vspace{1cm}
 {\fontsize{10}{12} \bfseries """ + proj_num + r"""\par}
 \vspace{0.2cm}
-{{\fontsize{10}{12}30 Oktober 2024\par}\par}
+{{\fontsize{10}{12}""" + date_month + r"""\par}\par}
 \vspace{0.2cm}
 {{\fontsize{10}{12} Revision """ + rev_num + r"""\par}\par}
 \vspace{5.5cm}
@@ -89,7 +89,7 @@ class LatexContent:
 \fancyhead[R]{\fontsize{7}{10}\selectfont \textbf{BURO HAPPOLD}}
 \fancyhead[L]{\fontsize{7}{10}\selectfont \textbf{""" + proj_name + r"""}}
 \fancyfoot[L]{\fontsize{7}{10}\selectfont\\ """ + proj_code + """ \\\\""" + report_name + r"""\\ Copyright\copyright{} 1976 - 2024 BuroHappold Engineering. All Rights Reserved.}
-\fancyfoot[R]{\fontsize{7}{10}\selectfont\\ Revision """ + rev_num + r"""\\ 30 Oktober 2024}
+\fancyfoot[R]{\fontsize{7}{10}\selectfont\\ Revision """ + rev_num + r"""\\ """ + date_month + r"""}
 }
 \pagestyle{myheaderfooter}
 \renewcommand{\arraystretch}{3}
@@ -107,26 +107,26 @@ class LatexContent:
 
 \endfoot
 
-\parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & 30.10.2024 & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+\parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
 [3.75ex]
 \hline
 \end{longtable}
 \vspace{1cm}
 \section*{Haftungsausschluss Bericht}
 
-Dieser Bericht wurde von Buro Happold GmbH ausschließlich zum alleinigen Nutzen und Gebrauch von Museum für Naturkunde Berlin erstellt. Der Zweck des Berichts umfasst die LP2 Vorentwurfsplanung. Die Haftung von Buro Happold GmbH in Bezug auf die im Bericht enthaltenen Informationen ist nicht auf Dritte ubertragbar. Die Verantwortung von Buro Happold GmbH in Bezug auf den Inhalt des Berichts ist auf den Zweck beschränkt, für den der Bericht erstellt wurde, und unterliegt den ausdrücklichen Vertragsbedingungen mit  useum für Naturkunde Berlin. Der Bericht ist nicht als Anlage oder Finanzberatung auszulegen. Die Ergebnisse dieses Berichts liegen den verfugbaren Informationen zugrunde, wie sie in diesem Bericht dargelegt sind.
+Dieser Bericht wurde von Buro Happold GmbH ausschließlich zum alleinigen Nutzen und Gebrauch von """ + proj_name + r""" erstellt. Der Zweck des Berichts umfasst die LP2 Vorentwurfsplanung. Die Haftung von Buro Happold GmbH in Bezug auf die im Bericht enthaltenen Informationen ist nicht auf Dritte ubertragbar. Die Verantwortung von Buro Happold GmbH in Bezug auf den Inhalt des Berichts ist auf den Zweck beschränkt, für den der Bericht erstellt wurde, und unterliegt den ausdrücklichen Vertragsbedingungen mit  useum für Naturkunde Berlin. Der Bericht ist nicht als Anlage oder Finanzberatung auszulegen. Die Ergebnisse dieses Berichts liegen den verfugbaren Informationen zugrunde, wie sie in diesem Bericht dargelegt sind.
 
 \begin{table}[H]
 \begin{tabularx}{0.5\textwidth}{@{}X@{\hspace{0.5em}}X@{}}
 Autor & """ + author+ r"""\\
 \hline
-Datum &  30.10.2024\\
+Datum &  """ + date_number + r"""\\
 \hline
 geprüft & """ + checker+ r"""\\
 \hline
 Unterschrift & \\
 \hline
-Datum & 30.10.2024\\
+Datum & """ + date_number + r"""\\
 \hline
 \end{tabularx}
 \end{table}
@@ -199,7 +199,7 @@ Email: """ + author_email + r"""
 \fancyhead[R]{\fontsize{7}{10}\selectfont \textbf{BURO HAPPOLD}}
 \fancyhead[L]{\fontsize{7}{10}\selectfont \textbf{""" + proj_name + r"""}}
 \fancyfoot[L]{\fontsize{7}{10}\selectfont\\ """ + proj_code + """ \\\\""" + report_name + r"""\\ Copyright\copyright{} 1976 - 2024 BuroHappold Engineering. All Rights Reserved.}
-\fancyfoot[R]{\fontsize{7}{10}\selectfont\\ Revision """ + rev_num + r"""\\ 30 Oktober 2024}
+\fancyfoot[R]{\fontsize{7}{10}\selectfont\\ Revision """ + rev_num + r"""\\ """ + date_month + r"""}
 }
 
 \begin{document}
@@ -218,7 +218,7 @@ Email: """ + author_email + r"""
 \vspace{1cm}
 {\fontsize{10}{12} \bfseries """ + proj_num + r"""\par}
 \vspace{0.2cm}
-{{\fontsize{10}{12}30 Oktober 2024\par}\par}
+{{\fontsize{10}{12}""" + date_month + r"""\par}\par}
 \vspace{0.2cm}
 {{\fontsize{10}{12} Revision """ + rev_num + r"""\par}\par}
 \vspace{5.5cm}
@@ -234,26 +234,26 @@ Email: """ + author_email + r"""
 \begin{longtable}{@{\extracolsep{\fill}}p{0.15\textwidth}p{0.35\textwidth}p{0.15\textwidth}p{0.15\textwidth}p{0.15\textwidth}@{}}
 \textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
 \hline
-\parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & 30.10.2024 & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+\parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
 [3.75ex]
 \hline
 \end{longtable}
 \vspace{1cm}
 \section*{Haftungsausschluss Bericht}
 
-Dieser Bericht wurde von Buro Happold GmbH ausschließlich zum alleinigen Nutzen und Gebrauch von Museum für Naturkunde Berlin erstellt. Der Zweck des Berichts umfasst die LP2 Vorentwurfsplanung. Die Haftung von Buro Happold GmbH in Bezug auf die im Bericht enthaltenen Informationen ist nicht auf Dritte ubertragbar. Die Verantwortung von Buro Happold GmbH in Bezug auf den Inhalt des Berichts ist auf den Zweck beschränkt, für den der Bericht erstellt wurde, und unterliegt den ausdrücklichen Vertragsbedingungen mit  useum für Naturkunde Berlin. Der Bericht ist nicht als Anlage oder Finanzberatung auszulegen. Die Ergebnisse dieses Berichts liegen den verfugbaren Informationen zugrunde, wie sie in diesem Bericht dargelegt sind.
+Dieser Bericht wurde von Buro Happold GmbH ausschließlich zum alleinigen Nutzen und Gebrauch von """ + proj_name + r""" erstellt. Der Zweck des Berichts umfasst die LP2 Vorentwurfsplanung. Die Haftung von Buro Happold GmbH in Bezug auf die im Bericht enthaltenen Informationen ist nicht auf Dritte ubertragbar. Die Verantwortung von Buro Happold GmbH in Bezug auf den Inhalt des Berichts ist auf den Zweck beschränkt, für den der Bericht erstellt wurde, und unterliegt den ausdrücklichen Vertragsbedingungen mit  useum für Naturkunde Berlin. Der Bericht ist nicht als Anlage oder Finanzberatung auszulegen. Die Ergebnisse dieses Berichts liegen den verfugbaren Informationen zugrunde, wie sie in diesem Bericht dargelegt sind.
 
 \begin{table}[H]
 \begin{tabularx}{0.5\textwidth}{@{}X@{\hspace{0.5em}}X@{}}
 Autor & """ + author+ r"""\\
 \hline
-Datum &  30.10.2024\\
+Datum &  """ + date_number + r"""\\
 \hline
 geprüft & """ + checker+ r"""\\
 \hline
 Unterschrift & \\
 \hline
-Datum & 30.10.2024\\
+Datum & """ + date_number + r"""\\
 \hline
 \end{tabularx}
 \end{table}

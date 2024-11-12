@@ -86,7 +86,6 @@ class MainWindow(QWidget):
             self.layout.addWidget(self.checker)
             self.layout.addWidget(QLabel('Select Column of Revision number:', self))
             self.layout.addWidget(self.revision)
-            self.layout.addWidget(QLabel('Write down Date:', self))
             self.date_edit = QDateEdit(self)
             self.date_edit.setCalendarPopup(True)
             self.date_edit.setDate(QDate(2024, 1, 1))
@@ -144,6 +143,10 @@ class MainWindow(QWidget):
                                       self.drawing_no.currentIndex(), self.author.currentIndex(),
                                       self.checker.currentIndex())
             
+            selected_date=self.date_edit.date()
+            date_number=selected_date.toString('dd.MM.yyyy')
+            date_month=selected_date.toString('dd MMMM yyyy')
+
             for item in data:
                 auth_name = item['author']
                 check_name = item['checker']
@@ -152,12 +155,12 @@ class MainWindow(QWidget):
                 words = check_name.split()
                 check_init = ''.join([word[0] for word in words]) 
                 email_id = auth_name.lower().replace(' ', '.') + "@burohappold.com"
-                
+                output_path=str(self.output_path)
                 # Create a sensible file name
-                file_name = f"{self.output_path.text()}//{item['proj_name'].replace(' ', '_')}_{item['proj_code']}.tex"
-                folder_name = f"{self.output_path.text()}//{item['proj_name'].replace(' ', '_')}_{item['proj_code']}"
+                file_name = f"{output_path}//{item['proj_name'].replace(' ', '_')}_{item['proj_code']}.tex"
+                folder_name = f"{output_path}//{item['proj_name'].replace(' ', '_')}_{item['proj_code']}"
                 
-                create_report(self.projectNameValue, self.projectCodeValue, folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'])
+                create_report(date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'])
             
             if not data:
                 print("No data was extracted! Please check the debug output above.")
