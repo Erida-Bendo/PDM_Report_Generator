@@ -1,7 +1,7 @@
 from openpyxl import load_workbook
 from latex_content import LatexContent as lc
 from latexcompiler import LC as compiler
-import file_manager
+from file_manager import FileManager
 
 def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, ar_idx, as_idx):
     
@@ -63,14 +63,13 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
 
 def create_report(date_number, date_month, project_name, pcode,output_folder, output_file,report_name,proj_code,rev_num,author, description, checker,auth_init, check_init, author_email,page_type):
     with open(output_file, "a", encoding="utf-8") as tex_file:
-       tex_file.write(lc.content(file_manager.resource_path("resources/BH.jpg").replace('/','\\'), date_number, date_month, project_name,report_name,proj_code, pcode ,rev_num, author, description, checker, auth_init, check_init, author_email,page_type))
+       tex_file.write(lc.content(FileManager.resource_path("resources/BH.jpg").replace('/','\\'), date_number, date_month, project_name,report_name,proj_code, pcode ,rev_num, author, description, checker, auth_init, check_init, author_email,page_type))
     compiler.compile_document(tex_engine='lualatex',
                             bib_engine='biber',
                             no_bib=True,
                             path=output_file, folder_name= output_folder)
 
     print("Done!")   
-
 
     return None
 
