@@ -1,9 +1,11 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QFileDialog, QLabel, QLineEdit, QMessageBox, QComboBox, QDateEdit
+from PyQt5.QtWidgets import  QWidget, QPushButton, QVBoxLayout, QFileDialog, QLabel, QLineEdit, QMessageBox, QComboBox, QDateEdit
 from PyQt5.QtCore import QDate
 from PyQt5 import QtGui
 import pandas as pd
 from main import create_report, extract_excel_data
-
+from file_manager import FileManager
+import os
+import shutil
 
 def clear_layout(layout):
         if layout is not None:
@@ -11,6 +13,33 @@ def clear_layout(layout):
                 child = layout.takeAt(0)
                 if child.widget() is not None:
                     child.widget().deleteLater()
+
+def clean_directory(directory):
+    for root, dirs, files in os.walk(directory, topdown=False):
+        for name in files:
+            if not name.endswith('.pdf'):
+                os.remove(os.path.join(root, name))
+        for name in dirs:
+            shutil.rmtree(os.path.join(root, name))
+
+def getDate(date_number):
+    # List of German month names
+    months_in_german = [
+        "Januar", "Februar", "März", "April", "Mai", "Juni",
+        "Juli", "August", "September", "Oktober", "November", "Dezember"
+    ]
+    
+    # Split the date_number to extract the day, month, and year
+    day, month, year = date_number.split('.')
+    
+    # Convert month to an integer and adjust for zero-based index
+    month_index = int(month) - 1
+    
+    # Get the German month name
+    month_name_german = months_in_german[month_index]
+    
+    # Return the formatted date in German
+    return f"{day} {month_name_german} {year}"
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -26,7 +55,8 @@ class MainWindow(QWidget):
     def initUI(self):
         # Create and set up the UI elements
         self.setWindowTitle("PDM Report Generator")
-        self.setWindowIcon(QtGui.QIcon('resources/logo.png'))
+        iconPath=FileManager.resource_path("logo.png").replace('/','\\')
+        self.setWindowIcon(QtGui.QIcon(iconPath))
         loadExcelBtn = QPushButton('Select Excel File', self)
         loadExcelBtn.clicked.connect(self.load_excel)
         loadExcelBtn.setMinimumWidth(500)
@@ -143,10 +173,12 @@ class MainWindow(QWidget):
                                       self.drawing_no.currentIndex(), self.author.currentIndex(),
                                       self.checker.currentIndex())
             
+            
+            
             selected_date=self.date_edit.date()
             date_number=selected_date.toString('dd.MM.yyyy')
-            date_month=selected_date.toString('dd MMMM yyyy')
-
+            date_month=getDate(date_number)
+            logoPath=FileManager.resource_path("BH.jpg").replace('/','\\')
             for item in data:
                 auth_name = item['author']
                 check_name = item['checker']
@@ -160,13 +192,17 @@ class MainWindow(QWidget):
                 file_name = f"{output_path}//{item['proj_name'].replace(' ', '_')}_{item['proj_code']}.tex"
                 folder_name = f"{output_path}//{item['proj_name'].replace(' ', '_')}_{item['proj_code']}"
                 
-                create_report(date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'])
-            
+                create_report(logoPath, date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'])
+            QMessageBox.information(self, "Success", "Report successfully generated!🥳\nPlease check the folder.")
+
             if not data:
                 print("No data was extracted! Please check the debug output above.")
+            clean_directory(self.output_path)
+
+        
                 
         except Exception as e:
             print(f"An error occurred: {str(e)}")
 
-        QMessageBox.information(self, "Success", "Report successfully generated!🥳\nPlease check the folder.")
+        
     

@@ -20,7 +20,7 @@ command = [
     'pyinstaller',
     '--noconfirm',
     '--onefile',
-    '--icon', os.path.join(script_dir, 'resources\logo.png'),
+    '--icon', os.path.join(script_dir, 'logo.png'),
     '--add-data', add_data_arg,
     os.path.join(script_dir, 'PDM_GEN.py'),
     '--distpath', desktop_dir
