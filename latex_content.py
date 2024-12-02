@@ -1,8 +1,90 @@
 
 class LatexContent:
+
   
+  def createRevisionTable(page_type, rev_num, description, author_init, date_number, checker_init, dates, revText):
+    if page_type=="A4":
+      if (dates):
+        table=r"""
+\begin{longtable}{@{\extracolsep{\fill}}p{0.15\textwidth}p{0.35\textwidth}p{0.15\textwidth}p{0.15\textwidth}p{0.15\textwidth}@{}}
+\textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
+\hline
+\endfirsthead
+\hline
+\multicolumn{5}{@{}c@{}}{} \\
+\textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
+\hline
+\endhead
+\hline
+\multicolumn{5}{r}{} \\
+
+\endfoot"""
+
+        for i in range(len(dates)):
+          table+=r""" 
+\parbox[t]{0.15\textwidth}{\raggedright """ + str(revText[i]) + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + str(dates[i]) + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+[1.75ex]
+\hline"""
+        table+=r"""
+\parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+[1.75ex]
+\hline
+\end{longtable}"""
+      else:
+        table=r"""
+\begin{longtable}{@{\extracolsep{\fill}}p{0.15\textwidth}p{0.35\textwidth}p{0.15\textwidth}p{0.15\textwidth}p{0.15\textwidth}@{}}
+\textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
+\hline
+\endfirsthead
+\hline
+\multicolumn{5}{@{}c@{}}{} \\
+\textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
+\hline
+\endhead
+\hline
+\multicolumn{5}{r}{} \\
+
+\endfoot
+
+\parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+[3.75ex]
+\hline
+\end{longtable}
+  """
+
+    elif page_type == "A3":
+      if (dates):
+        table=r"""
+\begin{longtable}{@{\extracolsep{\fill}}p{0.15\textwidth}p{0.35\textwidth}p{0.15\textwidth}p{0.15\textwidth}p{0.15\textwidth}@{}}
+\textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
+\hline"""
+        for i in range(len(dates)):
+          table+=r""" 
+\parbox[t]{0.15\textwidth}{\raggedright """ + str(revText[i]) + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + str(dates[i]) + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+[1.75ex]
+\hline          
+"""
+        table+=r"""
+        \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+[1.75ex]
+\hline
+\end{longtable}"""
+      else:
+        table=r"""
+\begin{longtable}{@{\extracolsep{\fill}}p{0.15\textwidth}p{0.35\textwidth}p{0.15\textwidth}p{0.15\textwidth}p{0.15\textwidth}@{}}
+\textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
+\hline
+\parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+[3.75ex]
+\hline
+\end{longtable}
+"""
+    
+    return table
+    
   @staticmethod
-  def content(logo_fp, date_number, date_month, proj_name,report_name,proj_code,proj_num,rev_num,author, description, checker,author_init, checker_init,author_email, page_type):
+  def content(logo_fp, date_number, date_month, proj_name,report_name,proj_code,proj_num,rev_num,author, description, checker,author_init, checker_init,author_email, page_type, dates, revText):
+    table=LatexContent.createRevisionTable(page_type, rev_num, description, author_init, date_number, checker_init,  dates, revText)
     if page_type == "A4":
       content = r"""
 \documentclass[9pt,""" + page_type.lower() + r"""paper]{report}
@@ -93,24 +175,8 @@ class LatexContent:
 }
 \pagestyle{myheaderfooter}
 \renewcommand{\arraystretch}{3}
-\begin{longtable}{@{\extracolsep{\fill}}p{0.15\textwidth}p{0.35\textwidth}p{0.15\textwidth}p{0.15\textwidth}p{0.15\textwidth}@{}}
-\textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
-\hline
-\endfirsthead
-\hline
-\multicolumn{5}{@{}c@{}}{} \\
-\textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
-\hline
-\endhead
-\hline
-\multicolumn{5}{r}{} \\
+"""+table +r"""
 
-\endfoot
-
-\parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
-[3.75ex]
-\hline
-\end{longtable}
 \vspace{1cm}
 \section*{Haftungsausschluss Bericht}
 
@@ -231,13 +297,7 @@ Email: """ + author_email + r"""
 \pagestyle{myheaderfooter}
 \begin{minipage}[t]{0.5\textwidth}
 \renewcommand{\arraystretch}{3}
-\begin{longtable}{@{\extracolsep{\fill}}p{0.15\textwidth}p{0.35\textwidth}p{0.15\textwidth}p{0.15\textwidth}p{0.15\textwidth}@{}}
-\textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
-\hline
-\parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
-[3.75ex]
-\hline
-\end{longtable}
+"""+table+r"""
 \vspace{1cm}
 \section*{Haftungsausschluss Bericht}
 

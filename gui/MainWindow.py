@@ -90,7 +90,7 @@ class MainWindow(QWidget):
             self.author = QComboBox(self)
             self.checker = QComboBox(self)
             self.revision = QComboBox(self)
-            
+            self.revisionEnd = QComboBox(self)
             self.date = QLineEdit(self)
 
             loadFolderBtn = QPushButton('Select Output Folder', self)
@@ -116,6 +116,8 @@ class MainWindow(QWidget):
             self.layout.addWidget(self.checker)
             self.layout.addWidget(QLabel('Select Column of Revision number:', self))
             self.layout.addWidget(self.revision)
+            self.layout.addWidget(QLabel('Select Last Column of Previous Revisions:', self))
+            self.layout.addWidget(self.revisionEnd)
             self.date_edit = QDateEdit(self)
             self.date_edit.setCalendarPopup(True)
             self.date_edit.setDate(QDate(2024, 1, 1))
@@ -163,6 +165,8 @@ class MainWindow(QWidget):
         self.checker.addItems(column_titles)
         self.revision.clear()
         self.revision.addItems(column_titles)
+        self.revisionEnd.clear()
+        self.revisionEnd.addItems(column_titles)
 
     def generate_report(self):
         # Generate a report based on the files in the selected folder
@@ -171,7 +175,7 @@ class MainWindow(QWidget):
             data = extract_excel_data(self.file_path, self.sheet_dropdown.currentText(), self.revision.currentIndex(),
                                       self.doc_title.currentIndex(), self.page_type.currentIndex(),
                                       self.drawing_no.currentIndex(), self.author.currentIndex(),
-                                      self.checker.currentIndex())
+                                      self.checker.currentIndex(), self.revisionEnd.currentIndex(), )
             
             
             
@@ -187,12 +191,15 @@ class MainWindow(QWidget):
                 words = check_name.split()
                 check_init = ''.join([word[0] for word in words]) 
                 email_id = auth_name.lower().replace(' ', '.') + "@burohappold.com"
+                revDates=item['revDates']
+                revText=item['revText']
                 output_path=str(self.output_path)
                 # Create a sensible file name
-                file_name = f"{output_path}//{item['proj_name'].replace(' ', '_')}_{item['proj_code']}.tex"
-                folder_name = f"{output_path}//{item['proj_name'].replace(' ', '_')}_{item['proj_code']}"
-                
-                create_report(logoPath, date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'])
+                file_name = f"{output_path}//{item['proj_name'].replace(' ', '_').replace('/', '')}_{item['proj_code'].replace(' ', '_').replace('/', '')}.tex"
+                folder_name = f"{output_path}"
+                print(revDates)
+                print(revText)
+                create_report(logoPath, date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'], revDates, revText)
             QMessageBox.information(self, "Success", "Report successfully generated!🥳\nPlease check the folder.")
 
             if not data:

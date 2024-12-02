@@ -3,7 +3,7 @@ from latex_content import LatexContent as lc
 from latexcompiler import LC as compiler
 
 
-def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, ar_idx, as_idx):
+def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, ar_idx, as_idx, rend_idx=None):
     
     wb = load_workbook(filename=file_path, read_only=True, data_only=True)    
     # Access the specific sheet
@@ -22,7 +22,8 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
     
     row_count = 0
     processed_count = 0
-
+    rows = list(sheet.rows)
+    
     for row in sheet.iter_rows(min_row=17):
         row_count += 1
         
@@ -34,6 +35,8 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
             # If AG column has a value, collect the data
             if ag_value:
                 processed_count += 1
+                dates=[]
+                revText=[]
                 n_value = row[col_n_idx].value
                 al_value = row[col_al_idx].value
                 ao_value = row[col_ao_idx].value
@@ -41,13 +44,25 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
                 as_value = row[col_as_idx].value
 
                 
+                if(rend_idx):
+                    for i in range(rend_idx-col_ag_idx):
+                        revText.append(row[col_ag_idx+i+1].value.replace('_','\\_'))
+                        print(row[col_ag_idx+i+1].value)
+                        value = rows[11][col_ag_idx + i + 1].value
+                        sliced_value = str(str(value)[:10])
+                        print(sliced_value)
+                        dates.append(sliced_value)
+                        
+                
                 results.append({
                     "proj_name": n_value,
                     "page_type": al_value,
                     "proj_code": ao_value,
                     "author": ar_value,
                     "checker": as_value,
-                    "rev_num": ag_value
+                    "rev_num": ag_value,
+                    "revDates": dates,
+                    "revText": revText
                 })
                 
         except IndexError as e:
@@ -61,9 +76,9 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
     
     return results
 
-def create_report(logopath, date_number, date_month, project_name, pcode,output_folder, output_file,report_name,proj_code,rev_num,author, description, checker,auth_init, check_init, author_email,page_type):
+def create_report(logopath, date_number, date_month, project_name, pcode,output_folder, output_file,report_name,proj_code,rev_num,author, description, checker,auth_init, check_init, author_email,page_type, revDates, revText):
     with open(output_file, "a", encoding="utf-8") as tex_file:
-       tex_file.write(lc.content(logopath, date_number, date_month, project_name,report_name,proj_code, pcode ,rev_num, author, description, checker, auth_init, check_init, author_email,page_type))
+       tex_file.write(lc.content(logopath, date_number, date_month, project_name,report_name,proj_code, pcode ,rev_num, author, description, checker, auth_init, check_init, author_email,page_type, revDates, revText))
     compiler.compile_document(tex_engine='lualatex',
                             bib_engine='biber',
                             no_bib=True,
