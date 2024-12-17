@@ -77,6 +77,12 @@ class MainWindow(QWidget):
             projectCode = QLabel('Type Project Code', self)
             self.projectCodeValue = QLineEdit(self)
 
+            clientName = QLabel('Type Clientname', self)
+            self.clientNameValue = QLineEdit(self)
+
+            phase = QLabel('Type Construction Phase', self)
+            self.phaseValue = QLineEdit(self)
+
             generate = QPushButton('Generate', self)
             generate.clicked.connect(self.generate_report)
 
@@ -100,6 +106,10 @@ class MainWindow(QWidget):
             self.layout.addWidget(self.projectNameValue)
             self.layout.addWidget(projectCode)
             self.layout.addWidget(self.projectCodeValue)
+            self.layout.addWidget(clientName)
+            self.layout.addWidget(self.clientNameValue)
+            self.layout.addWidget(phase)
+            self.layout.addWidget(self.phaseValue)
             
             self.layout.addWidget(QLabel('Select Worksheet:', self))
             self.layout.addWidget(self.sheet_dropdown)
@@ -199,7 +209,7 @@ class MainWindow(QWidget):
                 folder_name = f"{output_path}"
                 print(revDates)
                 print(revText)
-                create_report(logoPath, date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'], revDates, revText)
+                create_report(logoPath, date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'], revDates, revText, self.clientNameValue.text(), self.phaseValue.text())
             QMessageBox.information(self, "Success", "Report successfully generated!🥳\nPlease check the folder.")
 
             if not data:

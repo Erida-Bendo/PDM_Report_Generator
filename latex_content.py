@@ -83,7 +83,7 @@ class LatexContent:
     return table
     
   @staticmethod
-  def content(logo_fp, date_number, date_month, proj_name,report_name,proj_code,proj_num,rev_num,author, description, checker,author_init, checker_init,author_email, page_type, dates, revText):
+  def content(logo_fp, date_number, date_month, proj_name,report_name,proj_code,proj_num,rev_num,author, description, checker,author_init, checker_init,author_email, page_type, dates, revText, client, phase):
     table=LatexContent.createRevisionTable(page_type, rev_num, description, author_init, date_number, checker_init,  dates, revText)
     if page_type == "A4":
       content = r"""
@@ -180,7 +180,7 @@ class LatexContent:
 \vspace{1cm}
 \section*{Haftungsausschluss Bericht}
 
-Dieser Bericht wurde von Buro Happold GmbH ausschließlich zum alleinigen Nutzen und Gebrauch von """ + proj_name + r""" erstellt. Der Zweck des Berichts umfasst die LP2 Vorentwurfsplanung. Die Haftung von Buro Happold GmbH in Bezug auf die im Bericht enthaltenen Informationen ist nicht auf Dritte ubertragbar. Die Verantwortung von Buro Happold GmbH in Bezug auf den Inhalt des Berichts ist auf den Zweck beschränkt, für den der Bericht erstellt wurde, und unterliegt den ausdrücklichen Vertragsbedingungen mit  useum für Naturkunde Berlin. Der Bericht ist nicht als Anlage oder Finanzberatung auszulegen. Die Ergebnisse dieses Berichts liegen den verfugbaren Informationen zugrunde, wie sie in diesem Bericht dargelegt sind.
+Dieser Bericht wurde von Buro Happold GmbH ausschließlich zum alleinigen Nutzen und Gebrauch von """+client+r""" erstellt. Der Zweck des Berichts umfasst """+phase+r""". Die Haftung von Buro Happold GmbH in Bezug auf die im Bericht enthaltenen Informationen ist nicht auf Dritte übertragbar. Die Verantwortung von Buro Happold GmbH in Bezug auf den Inhalt des Berichts ist auf den Zweck beschränkt, für den der Bericht erstellt wurde, und unterliegt den ausdrücklichen Vertragsbedingungen mit """+client+r""". Der Bericht ist nicht als Anlage- oder Finanzberatung auszulegen. Die Ergebnisse dieses Berichts liegen den verfügbaren Informationen zugrunde, wie sie in diesem Bericht dargelegt sind.
 
 \begin{table}[H]
 \begin{tabularx}{0.5\textwidth}{@{}X@{\hspace{0.5em}}X@{}}
@@ -301,7 +301,7 @@ Email: """ + author_email + r"""
 \vspace{1cm}
 \section*{Haftungsausschluss Bericht}
 
-Dieser Bericht wurde von Buro Happold GmbH ausschließlich zum alleinigen Nutzen und Gebrauch von """ + proj_name + r""" erstellt. Der Zweck des Berichts umfasst die LP2 Vorentwurfsplanung. Die Haftung von Buro Happold GmbH in Bezug auf die im Bericht enthaltenen Informationen ist nicht auf Dritte ubertragbar. Die Verantwortung von Buro Happold GmbH in Bezug auf den Inhalt des Berichts ist auf den Zweck beschränkt, für den der Bericht erstellt wurde, und unterliegt den ausdrücklichen Vertragsbedingungen mit  useum für Naturkunde Berlin. Der Bericht ist nicht als Anlage oder Finanzberatung auszulegen. Die Ergebnisse dieses Berichts liegen den verfugbaren Informationen zugrunde, wie sie in diesem Bericht dargelegt sind.
+Dieser Bericht wurde von Buro Happold GmbH ausschließlich zum alleinigen Nutzen und Gebrauch von """+client+r""" erstellt. Der Zweck des Berichts umfasst """+phase+r""". Die Haftung von Buro Happold GmbH in Bezug auf die im Bericht enthaltenen Informationen ist nicht auf Dritte übertragbar. Die Verantwortung von Buro Happold GmbH in Bezug auf den Inhalt des Berichts ist auf den Zweck beschränkt, für den der Bericht erstellt wurde, und unterliegt den ausdrücklichen Vertragsbedingungen mit """+client+r""". Der Bericht ist nicht als Anlage- oder Finanzberatung auszulegen. Die Ergebnisse dieses Berichts liegen den verfügbaren Informationen zugrunde, wie sie in diesem Bericht dargelegt sind.
 
 \begin{table}[H]
 \begin{tabularx}{0.5\textwidth}{@{}X@{\hspace{0.5em}}X@{}}
