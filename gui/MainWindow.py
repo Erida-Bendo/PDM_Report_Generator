@@ -22,12 +22,18 @@ def clean_directory(directory):
         for name in dirs:
             shutil.rmtree(os.path.join(root, name))
 
-def getDate(date_number):
-    # List of German month names
-    months_in_german = [
-        "Januar", "Februar", "März", "April", "Mai", "Juni",
-        "Juli", "August", "September", "Oktober", "November", "Dezember"
-    ]
+def getDate(date_number, language):
+    months=[]
+    if language==0:
+        months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ]
+    else:
+        months= [
+            "Januar", "Februar", "März", "April", "Mai", "Juni",
+            "Juli", "August", "September", "Oktober", "November", "Dezember"
+        ]
     
     # Split the date_number to extract the day, month, and year
     day, month, year = date_number.split('.')
@@ -36,7 +42,7 @@ def getDate(date_number):
     month_index = int(month) - 1
     
     # Get the German month name
-    month_name_german = months_in_german[month_index]
+    month_name_german = months[month_index]
     
     # Return the formatted date in German
     return f"{day} {month_name_german} {year}"
@@ -72,16 +78,17 @@ class MainWindow(QWidget):
         # Clear the dialog box
             clear_layout(self.layout)
 
+            projectLanguage = QLabel('Select Language', self)
+            self.language_dropdown = QComboBox(self)
+            self.language_dropdown.addItems(['EN', 'DE'])
+
             projectName = QLabel('Type Project Name', self)
             self.projectNameValue = QLineEdit(self)
             projectCode = QLabel('Type Project Code', self)
             self.projectCodeValue = QLineEdit(self)
 
-            clientName = QLabel('Type Clientname', self)
-            self.clientNameValue = QLineEdit(self)
-
-            phase = QLabel('Type Construction Phase', self)
-            self.phaseValue = QLineEdit(self)
+            disclaimer = QLabel('Type your Disclaimer Text here', self)
+            self.disclaimerValue= QLineEdit(self)
 
             generate = QPushButton('Generate', self)
             generate.clicked.connect(self.generate_report)
@@ -102,14 +109,15 @@ class MainWindow(QWidget):
             loadFolderBtn = QPushButton('Select Output Folder', self)
             loadFolderBtn.clicked.connect(self.load_output)
 
+
+            self.layout.addWidget(projectLanguage)
+            self.layout.addWidget(self.language_dropdown)
             self.layout.addWidget(projectName)
             self.layout.addWidget(self.projectNameValue)
             self.layout.addWidget(projectCode)
             self.layout.addWidget(self.projectCodeValue)
-            self.layout.addWidget(clientName)
-            self.layout.addWidget(self.clientNameValue)
-            self.layout.addWidget(phase)
-            self.layout.addWidget(self.phaseValue)
+            self.layout.addWidget(disclaimer)
+            self.layout.addWidget(self.disclaimerValue)
             
             self.layout.addWidget(QLabel('Select Worksheet:', self))
             self.layout.addWidget(self.sheet_dropdown)
@@ -191,8 +199,10 @@ class MainWindow(QWidget):
             
             selected_date=self.date_edit.date()
             date_number=selected_date.toString('dd.MM.yyyy')
-            date_month=getDate(date_number)
+            language = self.language_dropdown.currentIndex()
+            date_month=getDate(date_number, language)
             logoPath=FileManager.resource_path("BH.jpg").replace('/','\\')
+            
             for item in data:
                 auth_name = item['author']
                 check_name = item['checker']
@@ -205,11 +215,11 @@ class MainWindow(QWidget):
                 revText=item['revText']
                 output_path=str(self.output_path)
                 # Create a sensible file name
-                file_name = f"{output_path}//{item['proj_name'].replace(' ', '_').replace('/', '')}_{item['proj_code'].replace(' ', '_').replace('/', '')}.tex"
+                file_name = f"{output_path}//{item['proj_name'].replace('-', '_').replace(' ', '_').replace('/', '')}_{item['proj_code'].replace('-', '_').replace(' ', '_').replace('/', '')}.tex"
                 folder_name = f"{output_path}"
                 print(revDates)
                 print(revText)
-                create_report(logoPath, date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'], revDates, revText, self.clientNameValue.text(), self.phaseValue.text())
+                create_report(str(self.disclaimerValue.text()),language, logoPath, date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'], revDates, revText)
             QMessageBox.information(self, "Success", "Report successfully generated!🥳\nPlease check the folder.")
 
             if not data:

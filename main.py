@@ -76,9 +76,9 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
     
     return results
 
-def create_report(logopath, date_number, date_month, project_name, pcode,output_folder, output_file,report_name,proj_code,rev_num,author, description, checker,auth_init, check_init, author_email,page_type, revDates, revText, client, phase):
+def create_report(disclaimer, language, logopath, date_number, date_month, project_name, pcode,output_folder, output_file,report_name,proj_code,rev_num,author, description, checker,auth_init, check_init, author_email,page_type, revDates, revText):
     with open(output_file, "a", encoding="utf-8") as tex_file:
-       tex_file.write(lc.content(logopath, date_number, date_month, project_name,report_name,proj_code, pcode ,rev_num, author, description, checker, auth_init, check_init, author_email,page_type, revDates, revText, client, phase))
+       tex_file.write(lc.content(disclaimer, language, logopath, date_number, date_month, project_name,report_name,proj_code, pcode ,rev_num, author, description, checker, auth_init, check_init, author_email,page_type, revDates, revText))
     compiler.compile_document(tex_engine='lualatex',
                             bib_engine='biber',
                             no_bib=True,
