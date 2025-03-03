@@ -35,6 +35,8 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
             # If AG column has a value, collect the data
             if ag_value:
                 processed_count += 1
+                date = rows[11][col_ag_idx].value
+                date = str(str(date)[:10])
                 dates=[]
                 revText=[]
                 n_value = row[col_n_idx].value
@@ -45,13 +47,14 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
 
                 
                 if(rend_idx):
-                    for i in range(rend_idx-col_ag_idx):
-                        revText.append(row[col_ag_idx+i+1].value.replace('_','\\_'))
-                        print(row[col_ag_idx+i+1].value)
-                        value = rows[11][col_ag_idx + i + 1].value
-                        sliced_value = str(str(value)[:10])
-                        print(sliced_value)
-                        dates.append(sliced_value)
+                    for i in range(col_ag_idx-rend_idx):
+                        
+                        if(row[rend_idx+i].value):
+                            revText.append(row[rend_idx+i].value.replace('_','\\_'))
+                            value = rows[11][rend_idx+i].value
+                            sliced_value = str(str(value)[:10])
+                            dates.append(sliced_value)
+                        
                         
                 
                 results.append({
@@ -62,7 +65,8 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
                     "checker": as_value,
                     "rev_num": ag_value,
                     "revDates": dates,
-                    "revText": revText
+                    "revText": revText,
+                    "date": date
                 })
                 
         except IndexError as e:
@@ -76,9 +80,9 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
     
     return results
 
-def create_report(disclaimer, language, logopath, date_number, date_month, project_name, pcode,output_folder, output_file,report_name,proj_code,rev_num,author, description, checker,auth_init, check_init, author_email,page_type, revDates, revText):
+def create_report(disclaimer, language, logopath, date_number, date_month, project_name, pcode,output_folder, output_file,report_name,proj_code,rev_num,author, description, checker,auth_init, check_init, author_email,page_type, revDates, revText, revDate):
     with open(output_file, "a", encoding="utf-8") as tex_file:
-       tex_file.write(lc.content(disclaimer, language, logopath, date_number, date_month, project_name,report_name,proj_code, pcode ,rev_num, author, description, checker, auth_init, check_init, author_email,page_type, revDates, revText))
+       tex_file.write(lc.content(disclaimer, language, logopath, date_number, date_month, project_name,report_name,proj_code, pcode ,rev_num, author, description, checker, auth_init, check_init, author_email,page_type, revDates, revText, revDate))
     compiler.compile_document(tex_engine='lualatex',
                             bib_engine='biber',
                             no_bib=True,

@@ -214,12 +214,13 @@ class MainWindow(QWidget):
                 revDates=item['revDates']
                 revText=item['revText']
                 output_path=str(self.output_path)
+                revDate=item['date']
                 # Create a sensible file name
-                file_name = f"{output_path}//{item['proj_name'].replace('-', '_').replace(' ', '_').replace('/', '')}_{item['proj_code'].replace('-', '_').replace(' ', '_').replace('/', '')}.tex"
+                file_name = f"{output_path}//{item['proj_code'].replace('-', '_').replace(' ', '_').replace('/', '')}.tex"
                 folder_name = f"{output_path}"
                 print(revDates)
                 print(revText)
-                create_report(str(self.disclaimerValue.text()),language, logoPath, date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'], revDates, revText)
+                create_report(str(self.disclaimerValue.text()),language, logoPath, date_number, date_month, str(self.projectNameValue.text()), str(self.projectCodeValue.text()), folder_name, file_name, item['proj_name'], item['proj_code'].replace('_','\\_'), item['rev_num'].replace('_','\\_'), auth_name, item['proj_name'], check_name, auth_init, check_init, email_id, item['page_type'], revDates, revText, revDate)
             QMessageBox.information(self, "Success", "Report successfully generated!🥳\nPlease check the folder.")
 
             if not data:

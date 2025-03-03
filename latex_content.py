@@ -2,7 +2,7 @@
 class LatexContent:
 
   
-  def createRevisionTable(language, page_type, rev_num, description, author_init, date_number, checker_init, dates, revText):
+  def createRevisionTable(language, page_type, rev_num, description, author_init, date_number, checker_init, dates, revText, revDate):
     if language==0:
       if page_type=="A4":
         if (dates):
@@ -27,7 +27,7 @@ class LatexContent:
   [1.75ex]
   \hline"""
           table+=r"""
-  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + revDate + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
   [1.75ex]
   \hline
   \end{longtable}"""
@@ -47,7 +47,7 @@ class LatexContent:
 
   \endfoot
 
-  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + revDate + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
   [3.75ex]
   \hline
   \end{longtable}
@@ -66,7 +66,7 @@ class LatexContent:
   \hline          
   """
           table+=r"""
-          \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+          \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + revDate + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
   [1.75ex]
   \hline
   \end{longtable}"""
@@ -75,7 +75,7 @@ class LatexContent:
   \begin{longtable}{@{\extracolsep{\fill}}p{0.15\textwidth}p{0.35\textwidth}p{0.15\textwidth}p{0.15\textwidth}p{0.15\textwidth}@{}}
   \textbf{Revision} & \textbf{Description} & \textbf{Author} & \textbf{Date} & \textbf{checked} \\
   \hline
-  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + revDate + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
   [3.75ex]
   \hline
   \end{longtable}
@@ -104,7 +104,7 @@ class LatexContent:
   [1.75ex]
   \hline"""
           table+=r"""
-  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + revDate + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
   [1.75ex]
   \hline
   \end{longtable}"""
@@ -124,7 +124,7 @@ class LatexContent:
 
   \endfoot
 
-  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + revDate + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
   [3.75ex]
   \hline
   \end{longtable}
@@ -143,7 +143,7 @@ class LatexContent:
   \hline          
   """
           table+=r"""
-          \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+          \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + revDate + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
   [1.75ex]
   \hline
   \end{longtable}"""
@@ -152,7 +152,7 @@ class LatexContent:
   \begin{longtable}{@{\extracolsep{\fill}}p{0.15\textwidth}p{0.35\textwidth}p{0.15\textwidth}p{0.15\textwidth}p{0.15\textwidth}@{}}
   \textbf{Revision} & \textbf{Beschreibung} & \textbf{Autor} & \textbf{Datum} & \textbf{geprüft} \\
   \hline
-  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + date_number + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
+  \parbox[t]{0.15\textwidth}{\raggedright """ + rev_num + r"""} & \parbox[t]{0.35\textwidth}{\raggedright """ + description + r"""} & \parbox[t]{0.15\textwidth}{\raggedright """ + author_init + r"""} & """ + revDate + r""" & \parbox[t]{0.15\textwidth}{\raggedright """ + checker_init + r"""} \\
   [3.75ex]
   \hline
   \end{longtable}
@@ -162,8 +162,8 @@ class LatexContent:
     return table
     
   @staticmethod
-  def content(disclaimer, language, logo_fp, date_number, date_month, proj_name,report_name,proj_code,proj_num,rev_num,author, description, checker,author_init, checker_init,author_email, page_type, dates, revText):
-    table=LatexContent.createRevisionTable(language, page_type, rev_num, description, author_init, date_number, checker_init,  dates, revText)
+  def content(disclaimer, language, logo_fp, date_number, date_month, proj_name,report_name,proj_code,proj_num,rev_num,author, description, checker,author_init, checker_init,author_email, page_type, dates, revText, revDate):
+    table=LatexContent.createRevisionTable(language, page_type, rev_num, description, author_init, date_number, checker_init,  dates, revText, revDate)
     if language==0:
       if page_type == "A4":
         content = r"""
@@ -237,7 +237,7 @@ class LatexContent:
   {{\fontsize{10}{12} Revision """ + rev_num + r"""\par}\par}
   \vspace{5.5cm}
   \vfill
-  {{\footnotesize Copyright\copyright{} 1976 - 2024 BuroHappold Engineering. All Rights Reserved }}
+  {{\footnotesize Copyright\copyright{} 1976 - 2025 Buro Happold. All Rights Reserved }}
   \end{titlepage}
 
   \restoregeometry
@@ -250,7 +250,7 @@ class LatexContent:
   \renewcommand{\footrule}{\textcolor{myfooterline}{\hrule width\headwidth height\footrulewidth\vskip-\footrulewidth}}
   \fancyhead[R]{\fontsize{7}{10}\selectfont \textbf{BURO HAPPOLD}}
   \fancyhead[L]{\fontsize{7}{10}\selectfont \textbf{""" + proj_name + r"""}}
-  \fancyfoot[L]{\fontsize{7}{10}\selectfont\\ """ + proj_code + """ \\\\""" + report_name + r"""\\ Copyright\copyright{} 1976 - 2024 BuroHappold Engineering. All Rights Reserved.}
+  \fancyfoot[L]{\fontsize{7}{10}\selectfont\\ """ + proj_code + """ \\\\""" + report_name + r"""\\ Copyright\copyright{} 1976 - 2025 Buro Happold. All Rights Reserved.}
   \fancyfoot[R]{\fontsize{7}{10}\selectfont\\ Revision """ + rev_num + r"""\\ """ + date_month + r"""}
   }
   \pagestyle{myheaderfooter}
@@ -344,7 +344,7 @@ class LatexContent:
   \renewcommand{\footrule}{\textcolor{myfooterline}{\hrule width\headwidth height\footrulewidth\vskip-\footrulewidth}}
   \fancyhead[R]{\fontsize{7}{10}\selectfont \textbf{BURO HAPPOLD}}
   \fancyhead[L]{\fontsize{7}{10}\selectfont \textbf{""" + proj_name + r"""}}
-  \fancyfoot[L]{\fontsize{7}{10}\selectfont\\ """ + proj_code + """ \\\\""" + report_name + r"""\\ Copyright\copyright{} 1976 - 2024 BuroHappold Engineering. All Rights Reserved.}
+  \fancyfoot[L]{\fontsize{7}{10}\selectfont\\ """ + proj_code + """ \\\\""" + report_name + r"""\\ Copyright\copyright{} 1976 - 2025 Buro Happold. All Rights Reserved.}
   \fancyfoot[R]{\fontsize{7}{10}\selectfont\\ Revision """ + rev_num + r"""\\ """ + date_month + r"""}
   }
 
@@ -369,7 +369,7 @@ class LatexContent:
   {{\fontsize{10}{12} Revision """ + rev_num + r"""\par}\par}
   \vspace{5.5cm}
   \vfill
-  {{\footnotesize Copyright\copyright{} 1976 - 2024 BuroHappold Engineering. All Rights Reserved }}
+  {{\footnotesize Copyright\copyright{} 1976 - 2025 Buro Happold. All Rights Reserved }}
   \end{minipage}
   \end{titlepage}
 
@@ -492,7 +492,7 @@ class LatexContent:
   {{\fontsize{10}{12} Revision """ + rev_num + r"""\par}\par}
   \vspace{5.5cm}
   \vfill
-  {{\footnotesize Copyright\copyright{} 1976 - 2024 BuroHappold Engineering. All Rights Reserved }}
+  {{\footnotesize Copyright\copyright{} 1976 - 2025 Buro Happold. Alle Rechte vorbehalten. }}
   \end{titlepage}
 
   \restoregeometry
@@ -505,7 +505,7 @@ class LatexContent:
   \renewcommand{\footrule}{\textcolor{myfooterline}{\hrule width\headwidth height\footrulewidth\vskip-\footrulewidth}}
   \fancyhead[R]{\fontsize{7}{10}\selectfont \textbf{BURO HAPPOLD}}
   \fancyhead[L]{\fontsize{7}{10}\selectfont \textbf{""" + proj_name + r"""}}
-  \fancyfoot[L]{\fontsize{7}{10}\selectfont\\ """ + proj_code + """ \\\\""" + report_name + r"""\\ Copyright\copyright{} 1976 - 2024 BuroHappold Engineering. All Rights Reserved.}
+  \fancyfoot[L]{\fontsize{7}{10}\selectfont\\ """ + proj_code + """ \\\\""" + report_name + r"""\\ Copyright\copyright{} 1976 - 2025 Buro Happold.  Alle Rechte vorbehalten..}
   \fancyfoot[R]{\fontsize{7}{10}\selectfont\\ Revision """ + rev_num + r"""\\ """ + date_month + r"""}
   }
   \pagestyle{myheaderfooter}
@@ -599,7 +599,7 @@ class LatexContent:
   \renewcommand{\footrule}{\textcolor{myfooterline}{\hrule width\headwidth height\footrulewidth\vskip-\footrulewidth}}
   \fancyhead[R]{\fontsize{7}{10}\selectfont \textbf{BURO HAPPOLD}}
   \fancyhead[L]{\fontsize{7}{10}\selectfont \textbf{""" + proj_name + r"""}}
-  \fancyfoot[L]{\fontsize{7}{10}\selectfont\\ """ + proj_code + """ \\\\""" + report_name + r"""\\ Copyright\copyright{} 1976 - 2024 BuroHappold Engineering. All Rights Reserved.}
+  \fancyfoot[L]{\fontsize{7}{10}\selectfont\\ """ + proj_code + """ \\\\""" + report_name + r"""\\ Copyright\copyright{} 1976 - 2025 Buro Happold.  Alle Rechte vorbehalten..}
   \fancyfoot[R]{\fontsize{7}{10}\selectfont\\ Revision """ + rev_num + r"""\\ """ + date_month + r"""}
   }
 
@@ -624,7 +624,7 @@ class LatexContent:
   {{\fontsize{10}{12} Revision """ + rev_num + r"""\par}\par}
   \vspace{5.5cm}
   \vfill
-  {{\footnotesize Copyright\copyright{} 1976 - 2024 BuroHappold Engineering. All Rights Reserved }}
+  {{\footnotesize Copyright\copyright{} 1976 - 2025 Buro Happold.  Alle Rechte vorbehalten. }}
   \end{minipage}
   \end{titlepage}
 
