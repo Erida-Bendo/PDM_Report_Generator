@@ -36,7 +36,7 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
             if ag_value:
                 processed_count += 1
                 date = rows[11][col_ag_idx].value
-                date = str(str(date)[:10])
+                date = str(date)[:10].replace('-','.')
                 dates=[]
                 revText=[]
                 n_value = row[col_n_idx].value
@@ -52,7 +52,7 @@ def extract_excel_data(file_path, sheet_column, ag_idx, n_idx, al_idx, ao_idx, a
                         if(row[rend_idx+i].value):
                             revText.append(row[rend_idx+i].value.replace('_','\\_'))
                             value = rows[11][rend_idx+i].value
-                            sliced_value = str(str(value)[:10])
+                            sliced_value = str(value)[:10].replace('-','.')
                             dates.append(sliced_value)
                         
                         

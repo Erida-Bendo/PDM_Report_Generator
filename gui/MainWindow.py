@@ -104,6 +104,7 @@ class MainWindow(QWidget):
             self.checker = QComboBox(self)
             self.revision = QComboBox(self)
             self.revisionEnd = QComboBox(self)
+            self.email = QLineEdit(self)
             self.date = QLineEdit(self)
 
             loadFolderBtn = QPushButton('Select Output Folder', self)
@@ -142,6 +143,8 @@ class MainWindow(QWidget):
             self.layout.addWidget(QLabel('Select a Date:', self))
             self.layout.addWidget(self.date_edit)
 
+            self.layout.addWidget(QLabel('Overwrite Author Email:', self))
+            self.layout.addWidget(self.email)
             
             self.layout.addWidget(loadFolderBtn)
             self.layout.addWidget(generate)
@@ -202,15 +205,26 @@ class MainWindow(QWidget):
             language = self.language_dropdown.currentIndex()
             date_month=getDate(date_number, language)
             logoPath=FileManager.resource_path("BH.jpg").replace('/','\\')
-            
+             
             for item in data:
                 auth_name = item['author']
                 check_name = item['checker']
                 words = auth_name.split()
                 auth_init = ''.join([word[0] for word in words]) 
                 words = check_name.split()
-                check_init = ''.join([word[0] for word in words]) 
-                email_id = auth_name.lower().replace(' ', '.') + "@burohappold.com"
+                check_init = ''.join([word[0] for word in words])
+                names = auth_name.lower().split()
+                email_id=""
+                if(self.email):
+                    email_id=self.email.text()
+                elif(len(names)==3):
+                    if(auth_name=="Mert Can Kilinc"):
+                        email_id="mertcan.kilinc@burohappold.com"
+                    else:
+                        email_id = names[0] +"."+ names[1]+names[2]+ "@burohappold.com"
+                    
+                else:
+                    email_id = auth_name.lower().replace(' ', '.') + "@burohappold.com"
                 revDates=item['revDates']
                 revText=item['revText']
                 output_path=str(self.output_path)
